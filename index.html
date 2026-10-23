@@ -56,7 +56,7 @@
     </div>
 
     <!-- ================= APLICAÇÃO PRINCIPAL ================= -->
-    <div id="app-principal" class="hidden">
+    <div id="app-principal" style="display: none;">
         <!-- TOPO FIXO (HEADER + NAVEGAÇÃO) -->
         <div class="sticky top-0 z-30 shadow-md">
             <!-- Header Executivo -->
@@ -390,6 +390,7 @@
 
     <!-- SCRIPT PRINCIPAL -->
     <script>
+        // URL oficial da sua Google Planilha (Apps Script Web App)
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwuPgADqZyL8L2yIiPl-dyTJkEkvpCsJKHh1mYItDpwVSrOFced563OHDwPIXJ_YLLZ5A/exec";
         Chart.register(ChartDataLabels);
 
@@ -436,8 +437,8 @@
                 carregarDados();
                 const logado = localStorage.getItem('100m_logado');
                 if (logado === 'true') {
-                    document.getElementById('tela-login').classList.add('hidden');
-                    document.getElementById('app-principal').classList.remove('hidden');
+                    document.getElementById('tela-login').style.display = 'none';
+                    document.getElementById('app-principal').style.display = 'block';
                     init();
                 }
             } catch(err) {
@@ -456,13 +457,17 @@
 
             if ((usuario === userCorreto && senha === senhaCorreta) || (usuario === '100moderacao' && senha === '1234')) {
                 localStorage.setItem('100m_logado', 'true');
-                erroEl.classList.add('hidden');
-                document.getElementById('tela-login').classList.add('hidden');
-                document.getElementById('app-principal').classList.remove('hidden');
+                if (erroEl) erroEl.classList.add('hidden');
+                document.getElementById('tela-login').style.display = 'none';
+                document.getElementById('app-principal').style.display = 'block';
                 init();
             } else {
-                erroEl.innerText = `Usuário ou senha inválidos! (Digitado: ${usuario} / ${senha})`;
-                erroEl.classList.remove('hidden');
+                if (erroEl) {
+                    erroEl.innerText = `Usuário ou senha inválidos!`;
+                    erroEl.classList.remove('hidden');
+                } else {
+                    alert('Usuário ou senha inválidos!');
+                }
             }
         }
 
@@ -675,13 +680,11 @@
             salvarDados(); atualizarInterface(); enviarParaPlanilha();
         }
 
-        
         function salvarMargemDiaria(e) {
             e.preventDefault();
             const data = document.getElementById('margem-data').value;
             const margem = parseFloat(document.getElementById('margem-valor-dia').value) || 0;
             
-            // Verificar se já existe margem para essa data, se sim atualizar, senão adicionar
             const idx = db.margensDiarias.findIndex(m => m.data === data);
             if (idx >= 0) {
                 db.margensDiarias[idx].margem = margem;
@@ -829,10 +832,9 @@
             const totalDesp = despesasF.reduce((a, d) => a + d.valor, 0);
             const totalRet = retiradasF.reduce((a, r) => a + r.valor, 0);
             
-            // Soma do lucro considerando a margem cadastrada para o dia específico (ou 30% padrão se não cadastrada)
             let lucroVendas = 0;
             vendasF.forEach(v => {
-                let m = 30; // padrão 30% se não houver margem do dia lançada
+                let m = 30;
                 const margemDiaObj = db.margensDiarias.find(md => md.data === v.data);
                 if (margemDiaObj) {
                     m = margemDiaObj.margem;
@@ -925,7 +927,6 @@
             const despesasF = filtrarDados(db.despesas);
             const retiradasF = filtrarDados(db.retiradas);
 
-            // Obter todos os dias envolvidos em vendas, despesas ou retiradas
             const diasSet = new Set();
             vendasF.forEach(v => diasSet.add(v.data));
             despesasF.forEach(d => diasSet.add(d.data));
@@ -933,7 +934,6 @@
             const dias = [...diasSet].sort();
             const diasF = dias.map(d => formatarData(d));
 
-            // Calcular Lucro Real Diário e Estoque Diário
             const lucroRealDiario = [];
             const estoqueDiario = [];
 
@@ -996,8 +996,17 @@
         function sincronizarComPlanilha() {
             const dot = document.getElementById('status-sync-dot');
             const txt = document.getElementById('status-sync-text');
+            if (!dot || !txt) return;
             dot.className = "w-2 h-2 rounded-full bg-amber-500 animate-ping";
             txt.innerText = "Sincronizando com Google Planilhas...";
+
+            if (window.location.protocol === 'file:') {
+                setTimeout(() => {
+                    dot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
+                    txt.innerText = "Modo Local (file://) - Pronto";
+                }, 500);
+                return;
+            }
 
             fetch(WEB_APP_URL, { method: 'GET', mode: 'no-cors' }).then(() => {
                 dot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
@@ -1034,7 +1043,16 @@
             link.click();
         }
 
-        window.onload = verificarSessao;
+        window.onload = function() {
+            try {
+                verificarSessao();
+            } catch(e) {
+                console.error("Erro no onload:", e);
+                document.getElementById('tela-login').style.display = 'none';
+                document.getElementById('app-principal').style.display = 'block';
+                init();
+            }
+        };
     </script>
 </body>
 </html>
