@@ -49,7 +49,7 @@
             </form>
             <div class="mt-4 flex justify-between items-center text-[11px]">
                 <button onclick="localStorage.clear(); alert('Cache limpo com sucesso! Recarregue a página.'); location.reload();" class="text-blue-600 underline hover:text-blue-800">Limpar Cache / Resetar</button>
-                <span class="text-slate-400">ServFesta • v6.12</span>
+                <span class="text-slate-400">ServFesta • v6.15</span>
             </div>
         </div>
     </div>
@@ -1034,14 +1034,18 @@
             db.despesas.forEach(d => transacoesPlanas.push({ tipo: 'Despesa', data: d.data, descricao: d.historico, categoria: d.grupo, valor: d.valor }));
             db.retiradas.forEach(r => transacoesPlanas.push({ tipo: 'Retirada', data: r.data, descricao: r.historico, categoria: r.tipo, valor: r.valor }));
 
-            const urlComDados = WEB_APP_URL + "?data=" + encodeURIComponent(JSON.stringify(transacoesPlanas));
+            const bodyData = "data=" + encodeURIComponent(JSON.stringify(transacoesPlanas));
 
-            fetch(urlComDados, {
-                method: 'GET',
-                mode: 'no-cors'
+            fetch(WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: bodyData
             }).then(() => {
-                console.log('Sincronizado com sucesso!');
-            }).catch(err => console.log('Sync background:', err));
+                console.log('Enviado para a planilha com sucesso!');
+            }).catch(err => console.log('Erro no envio:', err));
         }
 
         function exportarCSV() {
