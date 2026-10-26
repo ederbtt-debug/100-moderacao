@@ -24,7 +24,6 @@
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans">
-
     <!-- ================= TELA DE LOGIN ================= -->
     <div id="tela-login" class="fixed inset-0 bg-slate-950 flex items-center justify-center z-50 p-4">
         <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md border border-slate-200 text-center">
@@ -50,7 +49,7 @@
             </form>
             <div class="mt-4 flex justify-between items-center text-[11px]">
                 <button onclick="localStorage.clear(); alert('Cache limpo com sucesso! Recarregue a página.'); location.reload();" class="text-blue-600 underline hover:text-blue-800">Limpar Cache / Resetar</button>
-                <span class="text-slate-400">ServFesta • v6.9</span>
+                <span class="text-slate-400">ServFesta • v6.12</span>
             </div>
         </div>
     </div>
@@ -79,7 +78,6 @@
                             <input type="date" id="filtroDataFim" class="bg-slate-900 text-white px-2.5 py-1 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 cursor-pointer" onclick="this.showPicker()" onchange="atualizarDados()">
                             <button onclick="limparFiltros()" class="bg-blue-600 hover:bg-blue-500 text-white px-2.5 py-1 rounded-lg font-semibold transition">Limpar</button>
                         </div>
-
                         <button onclick="sincronizarComPlanilha()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-2 rounded-xl text-xs font-bold transition shadow flex items-center gap-1.5">🔄 Sincronizar</button>
                         <button onclick="exportarCSV()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-2 rounded-xl text-xs font-bold transition shadow flex items-center gap-1.5">📥 Exportar</button>
                         <button onclick="fazerLogout()" class="bg-rose-600 hover:bg-rose-500 text-white px-3 py-2 rounded-xl text-xs font-bold transition shadow">🔒 Sair</button>
@@ -102,7 +100,6 @@
 
         <!-- ================= CONTEÚDO PRINCIPAL ================= -->
         <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
-
             <!-- ABA: RESUMO GERENCIAL -->
             <div id="tab-gerencial" class="space-y-6">
                 <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row justify-between items-center gap-4">
@@ -112,7 +109,6 @@
                     </div>
                     <button onclick="window.print()" class="bg-white/10 hover:bg-white/25 text-white px-4 py-2 rounded-xl text-xs font-semibold transition border border-white/20">Imprimir Relatório</button>
                 </div>
-
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                         <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Faturamento Bruto Acumulado</p>
@@ -127,7 +123,6 @@
                         <p class="text-2xl sm:text-3xl font-extrabold mt-2" id="gerencial-lucro">R$ 0,00</p>
                     </div>
                 </div>
-
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
                         <p class="text-xs font-semibold uppercase text-slate-400">Total Taxas de Cartão</p>
@@ -142,7 +137,6 @@
                         <p class="text-lg font-bold text-amber-600 mt-1" id="gerencial-retiradas">R$ 0,00</p>
                     </div>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                         <h3 class="font-bold text-slate-700 mb-4 text-sm">📈 Evolução Histórica (Líquido)</h3>
@@ -171,7 +165,6 @@
                         <p class="text-2xl sm:text-3xl font-extrabold mt-2" id="kpi-lucro">R$ 0,00</p>
                     </div>
                 </div>
-
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
                         <p class="text-xs font-semibold uppercase text-slate-400">Total Taxas de Cartão</p>
@@ -186,7 +179,6 @@
                         <p class="text-lg font-bold text-amber-600 mt-1" id="kpi-retiradas">R$ 0,00</p>
                     </div>
                 </div>
-
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                     <div class="bg-slate-100 px-6 py-4 border-b border-slate-200 font-bold text-slate-700 flex justify-between items-center text-sm">
                         <span>Demonstrativo de Resultado do Período</span>
@@ -234,7 +226,6 @@
                     <button onclick="mudarTipoLancamento('retiradas')" id="btn-tipo-retiradas" class="flex-1 px-4 py-2.5 rounded-xl font-semibold text-xs transition bg-slate-100 text-slate-600 hover:bg-slate-200">Lançar Retirada</button>
                     <button onclick="mudarTipoLancamento('margens')" id="btn-tipo-margens" class="flex-1 px-4 py-2.5 rounded-xl font-semibold text-xs transition bg-slate-100 text-slate-600 hover:bg-slate-200">Lançar Margem do Dia</button>
                 </div>
-
                 <!-- Form Vendas -->
                 <div id="form-vendas" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                     <h3 class="font-bold text-slate-700 mb-4 text-sm">Registrar Nova Venda / Entrada</h3>
@@ -246,7 +237,6 @@
                         <div class="flex items-end sm:col-span-2 md:col-span-1"><button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-xl text-sm transition shadow">Adicionar</button></div>
                     </form>
                 </div>
-
                 <!-- Form Despesas -->
                 <div id="form-despesas" class="hidden bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                     <h3 class="font-bold text-slate-700 mb-4 text-sm">Registrar Despesa / Boleto</h3>
@@ -258,7 +248,6 @@
                         <div class="flex items-end sm:col-span-2 md:col-span-1"><button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-semibold py-2 rounded-xl text-sm transition shadow">Adicionar</button></div>
                     </form>
                 </div>
-
                 <!-- Form Retiradas -->
                 <div id="form-retiradas" class="hidden bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                     <h3 class="font-bold text-slate-700 mb-4 text-sm">Registrar Retirada / Pró-labore</h3>
@@ -270,7 +259,6 @@
                         <div class="flex items-end sm:col-span-2 md:col-span-1"><button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2 rounded-xl text-sm transition shadow">Adicionar</button></div>
                     </form>
                 </div>
-
                 <!-- Form Margem Diária -->
                 <div id="form-margens" class="hidden bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                     <h3 class="font-bold text-slate-700 mb-4 text-sm">Definir Margem de Lucro do Dia</h3>
@@ -280,7 +268,6 @@
                         <div class="flex items-end"><button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 rounded-xl text-sm transition shadow">Salvar Margem do Dia</button></div>
                     </form>
                 </div>
-
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                     <div class="bg-slate-100 px-6 py-4 border-b border-slate-200 font-bold text-slate-700 text-sm" id="titulo-tabela-lancamentos">Histórico</div>
                     <div class="max-h-[450px] overflow-y-auto relative">
@@ -303,7 +290,6 @@
                         <input type="text" id="tabelao-filtro-busca" placeholder="🔍 Buscar no histórico..." onkeyup="renderizarTabelao()" class="border rounded-xl px-3 py-2 text-sm bg-slate-50 focus:outline-none focus:border-blue-500 w-full md:w-64">
                     </div>
                 </div>
-
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                     <div class="max-h-[550px] overflow-y-auto relative">
                         <table class="w-full text-left border-collapse text-sm">
@@ -344,7 +330,6 @@
                     </form>
                     <div id="msg-sucesso-senha" class="text-emerald-600 text-xs font-semibold mt-2 hidden">Credenciais atualizadas com sucesso!</div>
                 </div>
-
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                     <h3 class="font-bold text-slate-700 mb-4 text-sm">💳 Bandeiras e Taxas (%)</h3>
                     <div class="flex flex-col sm:flex-row gap-3 mb-4">
@@ -357,7 +342,6 @@
                         <tbody id="tabela-bandeiras-corpo"></tbody>
                     </table>
                 </div>
-
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                     <h3 class="font-bold text-slate-700 mb-4 text-sm">🏢 Centros de Custo</h3>
                     <div class="flex flex-col sm:flex-row gap-3 mb-4">
@@ -370,7 +354,6 @@
                         <tbody id="tabela-cc-corpo"></tbody>
                     </table>
                 </div>
-
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                     <h3 class="font-bold text-slate-700 mb-4 text-sm">🏷️ De/Para de Despesas</h3>
                     <div class="flex flex-col sm:flex-row gap-3 mb-4">
@@ -384,13 +367,11 @@
                     </table>
                 </div>
             </div>
-
         </main>
     </div>
 
     <!-- SCRIPT PRINCIPAL -->
     <script>
-        // URL oficial da sua Google Planilha (Apps Script Web App)
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwuPgADqZyL8L2yIiPl-dyTJkEkvpCsJKHh1mYItDpwVSrOFced563OHDwPIXJ_YLLZ5A/exec";
         Chart.register(ChartDataLabels);
 
@@ -515,28 +496,33 @@
 
         function salvarDados() { 
             try {
-                localStorage.setItem('100m_db', JSON.stringify(db)); 
+                localStorage.setItem('100m_db', JSON.stringify(db));
             } catch(e) {
                 console.error("Erro ao salvar dados:", e);
             }
         }
-        
+
         function carregarDados() {
             const saved = localStorage.getItem('100m_db');
-            if (saved) { 
-                try { 
-                    const parsed = JSON.parse(saved); 
-                    if (parsed) {
+            if (saved) {
+                 try {
+                     const parsed = JSON.parse(saved);
+                     if (parsed) {
                         db.vendas = parsed.vendas || [];
                         db.despesas = parsed.despesas || [];
                         db.retiradas = parsed.retiradas || [];
-                        db.cadastros = parsed.cadastros || db.cadastros;
+                        db.margensDiarias = parsed.margensDiarias || [];
                         db.auth = parsed.auth || db.auth;
+                        if (parsed.cadastros) {
+                            db.cadastros.bandeiras = parsed.cadastros.bandeiras || db.cadastros.bandeiras;
+                            db.cadastros.centrosCusto = parsed.cadastros.centrosCusto || db.cadastros.centrosCusto;
+                            db.cadastros.dePara = parsed.cadastros.dePara || db.cadastros.dePara;
+                        }
                     }
                 } catch(e) {
                     console.error("Erro ao ler db:", e);
-                } 
-            }
+                }
+             }
             if (!db.auth) db.auth = { usuario: '100moderacao', senha: '1234' };
         }
 
@@ -551,6 +537,7 @@
             if (tab === 'graficos') setTimeout(renderizarGraficosFiltrados, 50);
             if (tab === 'gerencial') setTimeout(renderizarGraficosGerenciais, 50);
             if (tab === 'tabelao') renderizarTabelao();
+            if (tab === 'cadastros') renderCadastrosTables();
         }
 
         function mudarTipoLancamento(tipo) {
@@ -566,76 +553,100 @@
 
         function popularSelects() {
             const selBandeira = document.getElementById('venda-bandeira');
-            selBandeira.innerHTML = '<option value="">Selecione...</option>';
-            db.cadastros.bandeiras.forEach(b => { selBandeira.innerHTML += `<option value="${b.nome}">${b.nome}</option>`; });
+            if (selBandeira) {
+                selBandeira.innerHTML = '<option value="">Selecione...</option>';
+                (db.cadastros.bandeiras || []).forEach(b => { selBandeira.innerHTML += `<option value="${b.nome}">${b.nome}</option>`; });
+            }
 
             const selCC = document.getElementById('venda-centro');
-            selCC.innerHTML = '<option value="">Selecione...</option>';
-            db.cadastros.centrosCusto.forEach(cc => { selCC.innerHTML += `<option value="${cc.codigo}">${cc.codigo} - ${cc.descricao}</option>`; });
+            if (selCC) {
+                selCC.innerHTML = '<option value="">Selecione...</option>';
+                (db.cadastros.centrosCusto || []).forEach(cc => { selCC.innerHTML += `<option value="${cc.codigo}">${cc.codigo} - ${cc.descricao}</option>`; });
+            }
 
             const selHist = document.getElementById('despesa-historico');
-            selHist.innerHTML = '<option value="">Selecione...</option>';
-            db.cadastros.dePara.forEach(d => { selHist.innerHTML += `<option value="${d.historico}">${d.historico}</option>`; });
+            if (selHist) {
+                selHist.innerHTML = '<option value="">Selecione...</option>';
+                (db.cadastros.dePara || []).forEach(d => { selHist.innerHTML += `<option value="${d.historico}">${d.historico}</option>`; });
+            }
 
             renderCadastrosTables();
         }
 
         function preencherGrupoDespesa() {
             const hist = document.getElementById('despesa-historico').value;
-            const item = db.cadastros.dePara.find(d => d.historico === hist);
+            const item = (db.cadastros.dePara || []).find(d => d.historico === hist);
             document.getElementById('despesa-grupo').value = item ? item.grupo : 'Outros';
         }
 
         function renderCadastrosTables() {
             let htmlB = '';
-            db.cadastros.bandeiras.forEach((b, i) => {
+            (db.cadastros.bandeiras || []).forEach((b, i) => {
                 htmlB += `<tr class="border-b"><td class="px-4 py-2">${b.nome}</td><td class="px-4 py-2">${b.taxa}</td><td class="px-4 py-2 text-center"><button onclick="db.cadastros.bandeiras.splice(${i},1); salvarDados(); popularSelects();" class="text-rose-500 font-semibold text-xs">Excluir</button></td></tr>`;
             });
-            document.getElementById('tabela-bandeiras-corpo').innerHTML = htmlB;
+            const tb = document.getElementById('tabela-bandeiras-corpo');
+            if (tb) tb.innerHTML = htmlB;
 
             let htmlCC = '';
-            db.cadastros.centrosCusto.forEach((cc, i) => {
+            (db.cadastros.centrosCusto || []).forEach((cc, i) => {
                 htmlCC += `<tr class="border-b"><td class="px-4 py-2 font-medium">${cc.codigo}</td><td class="px-4 py-2">${cc.descricao}</td><td class="px-4 py-2 text-center"><button onclick="db.cadastros.centrosCusto.splice(${i},1); salvarDados(); popularSelects();" class="text-rose-500 font-semibold text-xs">Excluir</button></td></tr>`;
             });
-            document.getElementById('tabela-cc-corpo').innerHTML = htmlCC;
+            const tcc = document.getElementById('tabela-cc-corpo');
+            if (tcc) tcc.innerHTML = htmlCC;
 
             let htmlDP = '';
-            db.cadastros.dePara.forEach((dp, i) => {
+            (db.cadastros.dePara || []).forEach((dp, i) => {
                 htmlDP += `<tr class="border-b"><td class="px-4 py-2 font-medium">${dp.historico}</td><td class="px-4 py-2">${dp.grupo}</td><td class="px-4 py-2 text-center"><button onclick="db.cadastros.dePara.splice(${i},1); salvarDados(); popularSelects();" class="text-rose-500 font-semibold text-xs">Excluir</button></td></tr>`;
             });
-            document.getElementById('tabela-depara-corpo').innerHTML = htmlDP;
+            const tdp = document.getElementById('tabela-depara-corpo');
+            if (tdp) tdp.innerHTML = htmlDP;
         }
 
         function adicionarBandeira() {
-            const nome = document.getElementById('nova-bandeira-nome').value.trim();
-            const taxa = parseFloat(document.getElementById('nova-bandeira-taxa').value) || 0;
+            const nomeInput = document.getElementById('nova-bandeira-nome');
+            const taxaInput = document.getElementById('nova-bandeira-taxa');
+            const nome = nomeInput.value.trim();
+            const taxa = parseFloat(taxaInput.value) || 0;
             if (nome) {
+                if (!db.cadastros.bandeiras) db.cadastros.bandeiras = [];
                 db.cadastros.bandeiras.push({ nome, taxa });
-                document.getElementById('nova-bandeira-nome').value = '';
-                document.getElementById('nova-bandeira-taxa').value = '';
-                salvarDados(); popularSelects(); atualizarInterface();
+                nomeInput.value = '';
+                taxaInput.value = '';
+                salvarDados();
+                popularSelects();
+                atualizarInterface();
             }
         }
 
         function adicionarCentroCusto() {
-            const codigo = document.getElementById('novo-cc-codigo').value.trim();
-            const descricao = document.getElementById('novo-cc-desc').value.trim();
+            const codigoInput = document.getElementById('novo-cc-codigo');
+            const descInput = document.getElementById('novo-cc-desc');
+            const codigo = codigoInput.value.trim();
+            const descricao = descInput.value.trim();
             if (codigo && descricao) {
+                if (!db.cadastros.centrosCusto) db.cadastros.centrosCusto = [];
                 db.cadastros.centrosCusto.push({ codigo, descricao });
-                document.getElementById('novo-cc-codigo').value = '';
-                document.getElementById('novo-cc-desc').value = '';
-                salvarDados(); popularSelects(); atualizarInterface();
+                codigoInput.value = '';
+                descInput.value = '';
+                salvarDados();
+                popularSelects();
+                atualizarInterface();
             }
         }
 
         function adicionarDePara() {
-            const historico = document.getElementById('novo-depara-hist').value.trim();
-            const grupo = document.getElementById('novo-depara-grupo').value.trim();
+            const histInput = document.getElementById('novo-depara-hist');
+            const grupoInput = document.getElementById('novo-depara-grupo');
+            const historico = histInput.value.trim();
+            const grupo = grupoInput.value.trim();
             if (historico && grupo) {
+                if (!db.cadastros.dePara) db.cadastros.dePara = [];
                 db.cadastros.dePara.push({ historico, grupo });
-                document.getElementById('novo-depara-hist').value = '';
-                document.getElementById('novo-depara-grupo').value = '';
-                salvarDados(); popularSelects(); atualizarInterface();
+                histInput.value = '';
+                grupoInput.value = '';
+                salvarDados();
+                popularSelects();
+                atualizarInterface();
             }
         }
 
@@ -645,7 +656,7 @@
             const bandeira = document.getElementById('venda-bandeira').value;
             const centroCusto = document.getElementById('venda-centro').value;
             const valorBruto = parseFloat(document.getElementById('venda-valor').value) || 0;
-            const bObj = db.cadastros.bandeiras.find(b => b.nome === bandeira);
+            const bObj = (db.cadastros.bandeiras || []).find(b => b.nome === bandeira);
             const taxa = bObj ? bObj.taxa : 0;
             const valorTaxa = valorBruto * taxa;
             const valorLiquido = valorBruto - valorTaxa;
@@ -802,7 +813,7 @@
         function filtrarDados(lista) {
             const inicio = document.getElementById('filtroDataInicio').value;
             const fim = document.getElementById('filtroDataFim').value;
-            return lista.filter(item => {
+            return (lista || []).filter(item => {
                 if (inicio && item.data < inicio) return false;
                 if (fim && item.data > fim) return false;
                 return true;
@@ -1023,11 +1034,13 @@
             db.despesas.forEach(d => transacoesPlanas.push({ tipo: 'Despesa', data: d.data, descricao: d.historico, categoria: d.grupo, valor: d.valor }));
             db.retiradas.forEach(r => transacoesPlanas.push({ tipo: 'Retirada', data: r.data, descricao: r.historico, categoria: r.tipo, valor: r.valor }));
 
-            fetch(WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(transacoesPlanas)
+            const urlComDados = WEB_APP_URL + "?data=" + encodeURIComponent(JSON.stringify(transacoesPlanas));
+
+            fetch(urlComDados, {
+                method: 'GET',
+                mode: 'no-cors'
+            }).then(() => {
+                console.log('Sincronizado com sucesso!');
             }).catch(err => console.log('Sync background:', err));
         }
 
