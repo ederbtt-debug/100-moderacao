@@ -393,7 +393,7 @@
                     { historico: 'Cartão Santander', grupo: 'Bancos' }
                 ]
             },
-            vendas: [],
+            vendas: [],		
             despesas: [],
             retiradas: [],
             margensDiarias: []
@@ -1034,18 +1034,16 @@
             db.despesas.forEach(d => transacoesPlanas.push({ tipo: 'Despesa', data: d.data, descricao: d.historico, categoria: d.grupo, valor: d.valor }));
             db.retiradas.forEach(r => transacoesPlanas.push({ tipo: 'Retirada', data: r.data, descricao: r.historico, categoria: r.tipo, valor: r.valor }));
 
-            const bodyData = "data=" + encodeURIComponent(JSON.stringify(transacoesPlanas));
-
+            // Envio limpo e direto em JSON puro via POST com no-cors
             fetch(WEB_APP_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: bodyData
+                body: JSON.stringify(transacoesPlanas)
             }).then(() => {
-                console.log('Enviado para a planilha com sucesso!');
-            }).catch(err => console.log('Erro no envio:', err));
+                console.log('Dados enviados com sucesso para a planilha!');
+            }).catch(err => {
+                console.error('Erro ao enviar:', err);
+            });
         }
 
         function exportarCSV() {
